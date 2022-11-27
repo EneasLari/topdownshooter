@@ -1,0 +1,29 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LivingEntity : MonoBehaviour, IDamagable
+{
+    public float startingHealth;
+    protected float health;
+    protected bool dead;
+    //we add virtual in order the function that will inherit this class will NOT override the method
+    protected virtual void Start()
+    {
+        health = startingHealth;    
+    }
+    public void TakeHit(float damage, RaycastHit hit)
+    {
+        health -= damage;
+        if (health <= 0 && !dead) {
+            Die();
+        }
+    }
+
+    protected void Die()
+    {
+        dead = true;
+        GameObject.Destroy(gameObject);
+    }
+}
