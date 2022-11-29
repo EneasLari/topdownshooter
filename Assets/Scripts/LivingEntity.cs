@@ -8,6 +8,9 @@ public class LivingEntity : MonoBehaviour, IDamagable
     public float startingHealth;
     protected float health;
     protected bool dead;
+
+    public event Action OnDeath;
+
     //we add virtual in order the function that will inherit this class will NOT override the method
     protected virtual void Start()
     {
@@ -24,6 +27,10 @@ public class LivingEntity : MonoBehaviour, IDamagable
     protected void Die()
     {
         dead = true;
+        if (OnDeath != null) {
+            OnDeath();
+        }
+
         GameObject.Destroy(gameObject);
     }
 }

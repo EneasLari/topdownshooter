@@ -8,3 +8,6 @@ enemies
 https://www.youtube.com/watch?v=UnPZyFjUvOM&ab_channel=SebastianLague
 damage system
 https://www.youtube.com/watch?v=v0zVBtZpB-8&ab_channel=SebastianLague
+
+spawn system
+https://www.youtube.com/watch?v=ajwRvAGKl_k&ab_channel=SebastianLague
