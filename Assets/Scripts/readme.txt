@@ -11,3 +11,8 @@ https://www.youtube.com/watch?v=v0zVBtZpB-8&ab_channel=SebastianLague
 
 spawn system
 https://www.youtube.com/watch?v=ajwRvAGKl_k&ab_channel=SebastianLague
+
+enemy attacks
+https://www.youtube.com/watch?v=njqRlH3Hj3Q&ab_channel=SebastianLague
+improvements
+https://www.youtube.com/watch?v=-mEbCEENpjU&ab_channel=SebastianLague

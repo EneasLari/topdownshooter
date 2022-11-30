@@ -12,9 +12,10 @@ public class GunController : MonoBehaviour
 
     void Start()
     {
-        if (startingGun != null) {
+        if (startingGun != null)
+        {
             EquipGun(startingGun);
-        }    
+        }
     }
     public void EquipGun(Gun gunToEquip)
     {
@@ -22,13 +23,14 @@ public class GunController : MonoBehaviour
         {
             Destroy(equipedGun.gameObject);
         }
-        equipedGun = Instantiate(gunToEquip,weaponHold.position,weaponHold.rotation) as Gun;
+        equipedGun = Instantiate(gunToEquip, weaponHold.position, weaponHold.rotation) as Gun;
         equipedGun.transform.parent = weaponHold;
     }
 
     public void Shoot()
     {
-        if (equipedGun != null) {
+        if (equipedGun != null)
+        {
             equipedGun.Shoot();
         }
     }

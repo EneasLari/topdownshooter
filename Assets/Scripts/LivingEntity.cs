@@ -14,12 +14,19 @@ public class LivingEntity : MonoBehaviour, IDamagable
     //we add virtual in order the function that will inherit this class will NOT override the method
     protected virtual void Start()
     {
-        health = startingHealth;    
+        health = startingHealth;
     }
     public void TakeHit(float damage, RaycastHit hit)
     {
+        //We will do some stuff here with the hit
+        TakeDamage(damage);
+    }
+
+    public void TakeDamage(float damage)
+    {
         health -= damage;
-        if (health <= 0 && !dead) {
+        if (health <= 0 && !dead)
+        {
             Die();
         }
     }
@@ -27,10 +34,13 @@ public class LivingEntity : MonoBehaviour, IDamagable
     protected void Die()
     {
         dead = true;
-        if (OnDeath != null) {
+        if (OnDeath != null)
+        {
             OnDeath();
         }
 
         GameObject.Destroy(gameObject);
     }
+
+
 }

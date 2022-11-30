@@ -21,26 +21,32 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime) { 
+        if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
+        {
             enemiesRemainingToSpawn--;
-            nextSpawnTime = Time.time+currentWave.timeBetweenSpawns;
+            nextSpawnTime = Time.time + currentWave.timeBetweenSpawns;
 
             Enemy spawnedEnemy = Instantiate(enemy, Vector3.zero, Quaternion.identity);
             spawnedEnemy.OnDeath += OnEnemyDeath;
         }
     }
 
-    void OnEnemyDeath() {
+    void OnEnemyDeath()
+    {
         print("Enemy Died");
         enemiesRemainingAlive--;
-        if (enemiesRemainingAlive == 0) {
+        if (enemiesRemainingAlive == 0)
+        {
             NextWave();
         }
     }
 
-    void NextWave() {
+    void NextWave()
+    {
         currentWaveNumber++;
-        if (currentWaveNumber - 1 < waves.Length) {
+        print("Wave: " + currentWaveNumber);
+        if (currentWaveNumber - 1 < waves.Length)
+        {
             currentWave = waves[currentWaveNumber - 1];
 
             enemiesRemainingToSpawn = currentWave.enemyCount;
@@ -51,7 +57,8 @@ public class Spawner : MonoBehaviour
 
     //classa to store variables of each wave of enemies
     [System.Serializable]
-    public class Wave { 
+    public class Wave
+    {
         public int enemyCount;
         public float timeBetweenSpawns;
     }

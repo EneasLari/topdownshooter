@@ -1,37 +1,138 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent (typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : LivingEntity
 {
+    public enum StateOfAttck { Idle, Chasing, Attacking }
+    StateOfAttck currentState;
+
     NavMeshAgent pathFinder;
     Transform target;
+    LivingEntity targetEntity;
+    Material skinMaterial;
+    Color originalColour;
+
+    float attackDistanceThreshold = 0.5f;
+    float timeBetweenAttacks = 1;
+    float damage = 1;
+
+    float nextAttackTime;
+
+    float myCollisionRadius;
+    float targetCollisionradius;
+
+    bool hasTarget;
+
     //we override the (virtual) start method of LivingEntity and we call it here with base.Start 
     protected override void Start()
     {
         base.Start();
         pathFinder = GetComponent<NavMeshAgent>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-        StartCoroutine(UpdatePath());
+        skinMaterial = GetComponent<Renderer>().material;
+        originalColour = skinMaterial.color;
+
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            currentState = StateOfAttck.Chasing;
+            hasTarget = true;
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+            targetEntity = target.GetComponent<LivingEntity>();
+            targetEntity.OnDeath += OnTargetDeath;
+
+            myCollisionRadius = GetComponent<CapsuleCollider>().radius;
+            targetCollisionradius = target.GetComponent<CapsuleCollider>().radius;
+
+            StartCoroutine(UpdatePath());
+        }
+
+
+    }
+
+
+    void OnTargetDeath()
+    {
+        hasTarget = false;
+        currentState = StateOfAttck.Idle;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        if (hasTarget)
+        {
+            //we want to see if the distance form the enemy to the target is less that the distance threshold
+            if (Time.time > nextAttackTime)
+            {
+                float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
+                if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionradius, 2))
+                {
+                    nextAttackTime = Time.time + timeBetweenAttacks;
+                    StartCoroutine(Attack());
+                }
+            }
+        }
+
+
     }
 
-    IEnumerator UpdatePath() {
-        float refreshrate = 0.25f;
-        while (target!=null) {
-            Vector3 targetPosition=new Vector3 (target.position.x, 0, target.position.z);
-            //if this coroutine tries to run after the object is destroyed
-            if (!dead) {
-                pathFinder.SetDestination(targetPosition);
+
+    IEnumerator Attack()
+    {
+
+        currentState = StateOfAttck.Attacking;
+        //in order pathfinder donty inerfier with attack animation above we disable it
+        pathFinder.enabled = false;
+
+        Vector3 originalPosition = transform.position;
+        Vector3 dirToTarget = (target.position - transform.position).normalized;
+        Vector3 attackPosition = target.position - dirToTarget * (myCollisionRadius);
+
+        float attackSpeed = 3;
+        float percent = 0;
+
+        skinMaterial.color = Color.red;
+        bool hasAppliedDamage = false;
+        while (percent <= 1)
+        {
+            if (percent >= 0.5 && !hasAppliedDamage)
+            {
+                hasAppliedDamage = true;
+                targetEntity.TakeDamage(damage);
             }
-            
+
+            print(percent);
+            percent += Time.deltaTime * attackSpeed;
+            float interpolation = (-Mathf.Pow(percent, 2) + percent) * 4;
+            transform.position = Vector3.Lerp(originalPosition, attackPosition, interpolation);
+            yield return null;
+        }
+
+        skinMaterial.color = originalColour;
+        //enable again pathfinder after attack is done
+        currentState = StateOfAttck.Chasing;
+        pathFinder.enabled = true;
+    }
+
+    IEnumerator UpdatePath()
+    {
+        float refreshrate = 0.25f;
+        while (hasTarget)
+        {
+            if (currentState == StateOfAttck.Chasing)
+            {
+                Vector3 dirTotarget = (target.position - transform.position).normalized;
+                Vector3 targetPosition = target.position - dirTotarget * (myCollisionRadius + targetCollisionradius + attackDistanceThreshold / 2);
+                //if this coroutine tries to run after the object is destroyed
+                if (!dead)
+                {
+                    pathFinder.SetDestination(targetPosition);
+                }
+
+            }
             yield return new WaitForSeconds(refreshrate);
         }
     }
