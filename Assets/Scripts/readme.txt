@@ -16,3 +16,6 @@ enemy attacks
 https://www.youtube.com/watch?v=njqRlH3Hj3Q&ab_channel=SebastianLague
 improvements
 https://www.youtube.com/watch?v=-mEbCEENpjU&ab_channel=SebastianLague
+
+map generator and editor
+https://www.youtube.com/watch?v=gIUVRYViG_g&ab_channel=SebastianLague
