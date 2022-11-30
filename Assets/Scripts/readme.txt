@@ -19,3 +19,6 @@ https://www.youtube.com/watch?v=-mEbCEENpjU&ab_channel=SebastianLague
 
 map generator and editor
 https://www.youtube.com/watch?v=gIUVRYViG_g&ab_channel=SebastianLague
+
+obstacle placement
+https://www.youtube.com/watch?v=q7BL-lboRXo&ab_channel=SebastianLague
