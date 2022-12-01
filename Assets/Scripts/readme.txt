@@ -22,3 +22,6 @@ https://www.youtube.com/watch?v=gIUVRYViG_g&ab_channel=SebastianLague
 
 obstacle placement
 https://www.youtube.com/watch?v=q7BL-lboRXo&ab_channel=SebastianLague
+
+map connectivity
+https://www.youtube.com/watch?v=2ycN6ZkWgOo&ab_channel=SebastianLague
