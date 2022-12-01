@@ -25,3 +25,5 @@ https://www.youtube.com/watch?v=q7BL-lboRXo&ab_channel=SebastianLague
 
 map connectivity
 https://www.youtube.com/watch?v=2ycN6ZkWgOo&ab_channel=SebastianLague
+map navigation
+https://www.youtube.com/watch?v=vQgLdFNrCN8&ab_channel=SebastianLague
