@@ -30,7 +30,8 @@ public class LivingEntity : MonoBehaviour, IDamagable
             Die();
         }
     }
-
+    //if we right click on the script and select Self destruct this function will executed
+    [ContextMenu("Self Destruct")]
     protected void Die()
     {
         dead = true;

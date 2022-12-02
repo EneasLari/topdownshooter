@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,8 @@ public class Spawner : MonoBehaviour
     bool isCamping;
 
     bool isDisabled;
+
+    public event Action<int> OnNewWave;
 
     private void Start()
     {
@@ -107,18 +110,27 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    void ResetPlayerPosition()
+    {
+        playerT.position = map.GetTileFromPosition(Vector3.zero).position + Vector3.up * 3;
+    }
     void NextWave()
     {
         currentWaveNumber++;
-        print("Wave: " + currentWaveNumber);
+
         if (currentWaveNumber - 1 < waves.Length)
         {
             currentWave = waves[currentWaveNumber - 1];
 
             enemiesRemainingToSpawn = currentWave.enemyCount;
             enemiesRemainingAlive = enemiesRemainingToSpawn;
-        }
 
+            if (OnNewWave != null)
+            {
+                OnNewWave(currentWaveNumber);
+            }
+            ResetPlayerPosition();
+        }
     }
 
     //classa to store variables of each wave of enemies
