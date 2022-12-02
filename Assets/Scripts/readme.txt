@@ -27,3 +27,6 @@ map connectivity
 https://www.youtube.com/watch?v=2ycN6ZkWgOo&ab_channel=SebastianLague
 map navigation
 https://www.youtube.com/watch?v=vQgLdFNrCN8&ab_channel=SebastianLague
+
+map generator finished
+https://www.youtube.com/watch?v=HuQITd3epIU&ab_channel=SebastianLague
