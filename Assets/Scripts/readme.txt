@@ -30,3 +30,6 @@ https://www.youtube.com/watch?v=vQgLdFNrCN8&ab_channel=SebastianLague
 
 map generator finished
 https://www.youtube.com/watch?v=HuQITd3epIU&ab_channel=SebastianLague
+
+random spawning
+https://www.youtube.com/watch?v=vOC3usydLeE&ab_channel=SebastianLague
