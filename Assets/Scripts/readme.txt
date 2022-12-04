@@ -33,3 +33,6 @@ https://www.youtube.com/watch?v=HuQITd3epIU&ab_channel=SebastianLague
 
 random spawning
 https://www.youtube.com/watch?v=vOC3usydLeE&ab_channel=SebastianLague
+
+particle death effect
+https://www.youtube.com/watch?v=PAKYDX9gPNQ&ab_channel=SebastianLague
