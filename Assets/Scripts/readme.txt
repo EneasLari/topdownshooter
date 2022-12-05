@@ -34,5 +34,11 @@ https://www.youtube.com/watch?v=HuQITd3epIU&ab_channel=SebastianLague
 random spawning
 https://www.youtube.com/watch?v=vOC3usydLeE&ab_channel=SebastianLague
 
+Game over
+https://www.youtube.com/watch?v=YaLMri-h1JQ&t=612s&ab_channel=SebastianLague
+
 particle death effect
 https://www.youtube.com/watch?v=PAKYDX9gPNQ&ab_channel=SebastianLague
+
+ weapon effects
+https://www.youtube.com/watch?v=e1XO53GA7xM&ab_channel=SebastianLague
