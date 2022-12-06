@@ -42,3 +42,9 @@ https://www.youtube.com/watch?v=PAKYDX9gPNQ&ab_channel=SebastianLague
 
  weapon effects
 https://www.youtube.com/watch?v=e1XO53GA7xM&ab_channel=SebastianLague
+
+weapon variation
+https://www.youtube.com/watch?v=yfSN6W98r4I&t=71s&ab_channel=SebastianLague
+
+WAVE DIFFICULTY
+https://www.youtube.com/watch?v=8fZIZMlC69s&ab_channel=SebastianLague

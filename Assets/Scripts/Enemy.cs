@@ -28,36 +28,59 @@ public class Enemy : LivingEntity
 
     bool hasTarget;
 
+    private void Awake()
+    {
+        pathFinder = GetComponent<NavMeshAgent>();
+
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            hasTarget = true;
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+            targetEntity = target.GetComponent<LivingEntity>();
+
+            myCollisionRadius = GetComponent<CapsuleCollider>().radius;
+            targetCollisionradius = target.GetComponent<CapsuleCollider>().radius;
+        }
+    }
+
     //we override the (virtual) start method of LivingEntity and we call it here with base.Start 
     protected override void Start()
     {
         base.Start();
-        pathFinder = GetComponent<NavMeshAgent>();
-        skinMaterial = GetComponent<Renderer>().material;
-        originalColour = skinMaterial.color;
 
-        if (GameObject.FindGameObjectWithTag("Player") != null)
+
+        if (hasTarget)
         {
             currentState = StateOfAttck.Chasing;
-            hasTarget = true;
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-            targetEntity = target.GetComponent<LivingEntity>();
             targetEntity.OnDeath += OnTargetDeath;
-
-            myCollisionRadius = GetComponent<CapsuleCollider>().radius;
-            targetCollisionradius = target.GetComponent<CapsuleCollider>().radius;
 
             StartCoroutine(UpdatePath());
         }
 
-
     }
+
+    public void SetCharacteristics(float moveSpeed, int hitsToKillPlayer, float enemyHealth, Color skinColour)
+    {
+        pathFinder.speed = moveSpeed;
+
+        if (hasTarget)
+        {
+            damage = Mathf.Ceil(targetEntity.startingHealth / hitsToKillPlayer);
+        }
+        startingHealth = enemyHealth;
+
+        skinMaterial = GetComponent<Renderer>().material;
+        skinMaterial.color = skinColour;
+        originalColour = skinMaterial.color;
+    }
+
 
     public override void TakeHit(float damage, Vector3 hitpoint, Vector3 hitDirection)
     {
-        if (damage >= health) {
+        if (damage >= health)
+        {
             //insrtantiate and destroy after start lifetime expires
-            Destroy(Instantiate(deathEffect.gameObject, hitpoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject,deathEffect.main.startLifetime.constant);
+            Destroy(Instantiate(deathEffect.gameObject, hitpoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, deathEffect.main.startLifetime.constant);
         }
         base.TakeHit(damage, hitpoint, hitDirection);
     }
