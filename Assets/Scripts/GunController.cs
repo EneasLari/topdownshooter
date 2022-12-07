@@ -43,6 +43,14 @@ public class GunController : MonoBehaviour
         }
     }
 
+    public void Aim(Vector3 aimPoint)
+    {
+        if (equipedGun != null)
+        {
+            equipedGun.Aim(aimPoint);
+        }
+    }
+
     public float GunHeight
     {
         get
