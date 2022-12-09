@@ -60,6 +60,7 @@ public class Player : LivingEntity
 
         }
         viewCamera.gameObject.SetActive(true);
+        viewCamera.tag = "MainCamera";
     }
 
     void FixedUpdate()
