@@ -36,12 +36,9 @@ public class Player : LivingEntity
     protected override void Start()
     {
         base.Start();
-
-
         gunController = GetComponent<GunController>();
         controller = GetComponent<PlayerController>();
         SetViewCamera();
-
     }
 
     void SetViewCamera() {
