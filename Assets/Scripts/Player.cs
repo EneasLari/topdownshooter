@@ -19,13 +19,11 @@ public class Player : LivingEntity
     public float mouseSensitivityY = 250;
     public float jumpForce = 220;
     public LayerMask groundedMask;
-
     float verticalLookRotation;
     bool grounded;
 
 
     public float moveSpeed = 5;
-
     public Crosshairs crosshairs;
 
     Camera viewCamera;
@@ -38,23 +36,28 @@ public class Player : LivingEntity
     protected override void Start()
     {
         base.Start();
-        TopDownCamera.gameObject.SetActive(false);
-        FPSCamera.gameObject.SetActive(false);
+
 
         gunController = GetComponent<GunController>();
         controller = GetComponent<PlayerController>();
+        SetViewCamera();
+
+    }
+
+    void SetViewCamera() {
+        TopDownCamera.gameObject.SetActive(false);
+        FPSCamera.gameObject.SetActive(false);
         if (currentView == ViewMode.TopDown)
         {
             viewCamera = TopDownCamera;//Camera.main;
             //FOR TOPDOWN: the camera follows the player in z and x axis 
-            initialcameraoffset =(viewCamera.transform.position-controller.transform.position);
+            initialcameraoffset = (viewCamera.transform.position - controller.transform.position);
         }
         else if (currentView == ViewMode.FPS)
         {
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             viewCamera = FPSCamera;//Camera.main;
             //make player parent of camera
-            
             viewCamera.transform.parent = FPSCameraPosition;
             viewCamera.transform.localPosition = Vector3.zero;
 
