@@ -3040,7 +3040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
-  currentView: 0
+  currentView: 1
   TopDownCamera: {fileID: 963194227}
   FPSCamera: {fileID: 1226150580}
   FPSCameraPosition: {fileID: 844593165}
