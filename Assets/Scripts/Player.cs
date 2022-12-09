@@ -31,6 +31,9 @@ public class Player : LivingEntity
     Camera viewCamera;
     PlayerController controller;
     GunController gunController;
+
+    private Vector3 initialcameraoffset;
+
     //we override the (virtual) start method of LivingEntity and we call it here with base.Start 
     protected override void Start()
     {
@@ -43,6 +46,8 @@ public class Player : LivingEntity
         if (currentView == ViewMode.TopDown)
         {
             viewCamera = TopDownCamera;//Camera.main;
+            //FOR TOPDOWN: the camera follows the player in z and x axis 
+            initialcameraoffset =(viewCamera.transform.position-controller.transform.position);
         }
         else if (currentView == ViewMode.FPS)
         {
@@ -57,7 +62,7 @@ public class Player : LivingEntity
         viewCamera.gameObject.SetActive(true);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (currentView == ViewMode.TopDown)
         {
@@ -164,6 +169,13 @@ public class Player : LivingEntity
                 gunController.Aim(point);
             }
         }
+
+        //make camera follow the player
+        float newx = (initialcameraoffset.x) + controller.transform.position.x;
+        float newz = (initialcameraoffset.z) + controller.transform.position.z;
+        Vector3 newpos= new Vector3(newx, viewCamera.transform.position.y, newz);
+        Vector3 newpostionofcamera = Vector3.Lerp(viewCamera.transform.position, newpos, 1 * Time.fixedDeltaTime);
+        viewCamera.transform.position = newpostionofcamera;
 
         // Weapon input
         if (Input.GetMouseButton(0))
