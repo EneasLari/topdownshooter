@@ -12,12 +12,16 @@ public class Player : LivingEntity
 
     public Camera TopDownCamera;
     public Camera FPSCamera;
+    public Transform FPSCameraPosition;
 
     //FPS VARIABLES
     public float mouseSensitivityX = 250;
     public float mouseSensitivityY = 250;
     public float jumpForce = 220;
+    public LayerMask groundedMask;
+
     float verticalLookRotation;
+    bool grounded;
 
 
     public float moveSpeed = 5;
@@ -43,8 +47,12 @@ public class Player : LivingEntity
         else if (currentView == ViewMode.FPS)
         {
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-            crosshairs.transform.Rotate(new Vector3(90, 0, 0));
             viewCamera = FPSCamera;//Camera.main;
+            //make player parent of camera
+            
+            viewCamera.transform.parent = FPSCameraPosition;
+            viewCamera.transform.localPosition = Vector3.zero;
+
         }
         viewCamera.gameObject.SetActive(true);
     }
@@ -59,9 +67,6 @@ public class Player : LivingEntity
         {
             FPSMovement();
         }
-
-
-
     }
 
     private void FPSMovement()
@@ -81,15 +86,46 @@ public class Player : LivingEntity
 
         // Look input
         Ray ray = viewCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit aimhit;
+        //set a default point at 100 meter distance where the ray will hit
+        Vector3 point = ray.GetPoint(100);
+        if (Physics.Raycast(ray, out aimhit, 100f))
+        {
+            Debug.DrawLine(ray.origin, aimhit.point, Color.red);
+            //place crosshairs at the end of the ray point
+            gunController.Aim(aimhit.point);
+        }
+        else {
+            Debug.DrawLine(ray.origin, point, Color.red);      
+            gunController.Aim(point);
+        }
 
-        Vector3 point = ray.GetPoint(20);
-        Debug.DrawLine(ray.origin, point, Color.red);
-        //place crosshairs at the end of the ray point
-        crosshairs.transform.position = point;
-        //make crosshair to look at(Z axis points camera) camera
-        crosshairs.transform.LookAt(viewCamera.transform);
+        crosshairs.SetFPSCrosshair(viewCamera);
         crosshairs.DetectTargets(ray);
-        gunController.Aim(point);
+        
+
+
+        // Jump
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (grounded)
+            {
+                GetComponent<Rigidbody>().AddForce(transform.up * jumpForce);
+            }
+        }
+
+        // Grounded check
+        Ray groundedray = new Ray(transform.position, -transform.up);
+        RaycastHit hit;
+
+        if (Physics.Raycast(groundedray, out hit, 1 + .1f, groundedMask))
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
 
         // Weapon input
         if (Input.GetMouseButton(0))
@@ -138,5 +174,10 @@ public class Player : LivingEntity
         {
             gunController.OnTriggerRelease();
         }
+    }
+
+    protected override void Die() {
+        viewCamera.transform.parent = null;
+        base.Die();
     }
 }

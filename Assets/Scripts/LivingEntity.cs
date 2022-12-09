@@ -32,7 +32,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     }
     //if we right click on the script and select Self destruct this function will executed
     [ContextMenu("Self Destruct")]
-    protected void Die()
+    protected virtual void Die()
     {
         dead = true;
         if (OnDeath != null)
@@ -41,6 +41,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
         }
 
         GameObject.Destroy(gameObject);
+        print("DEAD");
     }
 
 

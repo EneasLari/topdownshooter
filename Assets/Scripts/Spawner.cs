@@ -115,7 +115,7 @@ public class Spawner : MonoBehaviour
 
     void OnEnemyDeath()
     {
-        print("Enemy Died");
+        //print("Enemy Died");
         enemiesRemainingAlive--;
         if (enemiesRemainingAlive == 0)
         {
@@ -125,7 +125,7 @@ public class Spawner : MonoBehaviour
 
     void ResetPlayerPosition()
     {
-        playerT.position = map.GetTileFromPosition(Vector3.zero).position + Vector3.up * 3;
+        playerT.position = map.GetTileFromPosition(Vector3.zero).position + Vector3.up * 10;
     }
     void NextWave()
     {

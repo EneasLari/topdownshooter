@@ -136,8 +136,6 @@ public class Enemy : LivingEntity
                 hasAppliedDamage = true;
                 targetEntity.TakeDamage(damage);
             }
-
-            print(percent);
             percent += Time.deltaTime * attackSpeed;
             float interpolation = (-Mathf.Pow(percent, 2) + percent) * 4;
             transform.position = Vector3.Lerp(originalPosition, attackPosition, interpolation);

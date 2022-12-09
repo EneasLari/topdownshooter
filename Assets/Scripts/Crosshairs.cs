@@ -31,4 +31,14 @@ public class Crosshairs : MonoBehaviour
             dot.color = originalDotColour;
         }
     }
-} 
+
+    public void SetFPSCrosshair(Camera camera)
+    {
+        // returns a point exactly 20 meters in front of the camera:
+        var point = camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 20f));
+        transform.position = point;
+        transform.LookAt(camera.transform);
+
+
+    }
+}
