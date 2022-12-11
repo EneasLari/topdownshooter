@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 5323524696548975740}
   - component: {fileID: 7153461031102566604}
   - component: {fileID: 4221989536560937905}
-  - component: {fileID: 3446015603358423264}
+  - component: {fileID: 7281002107939006550}
   m_Layer: 6
   m_Name: TextOnEnemy
   m_TagString: Untagged
@@ -235,7 +235,7 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
---- !u!114 &3446015603358423264
+--- !u!114 &7281002107939006550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
