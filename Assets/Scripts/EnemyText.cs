@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyText : MonoBehaviour
@@ -9,6 +7,7 @@ public class EnemyText : MonoBehaviour
     
     QuestionsManagement questionManagement;
     Enemy enemy;
+    Spawner spawner;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,14 +16,18 @@ public class EnemyText : MonoBehaviour
         //add this object on questions management
         questionManagement = FindObjectOfType<QuestionsManagement>();
         enemy =GetComponentInParent<Enemy>();
-        enemy.OnDeath += CheckIdDeadhasCorrectAnswer;
+        spawner = FindObjectOfType<Spawner>();
+        enemy.OnDeath += CheckIfDeadhasCorrectAnswer;
         questionManagement.AddEnemyText(this);
     }
 
-    void CheckIdDeadhasCorrectAnswer()
+    void CheckIfDeadhasCorrectAnswer()
     {
         if (text == questionManagement.GetCurrentQuestion().correctAnswer) {
             print("This was the enemy with the correct answer");
+            questionManagement.GetCurrentQuestion().correctisAlive = false;
+            spawner.KillAllEnemiesAndNextWave();
+            questionManagement.SetRandomQuestion();
         }
     }
 

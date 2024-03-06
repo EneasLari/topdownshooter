@@ -12,12 +12,14 @@ public class QuestionsManagement : MonoBehaviour
 
     public TextMeshProUGUI questiontext;
     public TextAsset questionsJson;
+
     public bool setRandomWrongAnswers=true;
     
     List<string> shownWrongAnswers;
     List<EnemyText> enemyTexts;
     List<Question> questions;
     Question currentquestion;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +32,7 @@ public class QuestionsManagement : MonoBehaviour
         SetRandomQuestion();
     }
 
-    void SetRandomQuestion() {
+    public void SetRandomQuestion() {
         var random = new Random();
         int index=random.Next(questions.Count);
         Question getquestion = questions[index];
@@ -79,7 +81,7 @@ public class QuestionsManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     [Serializable]
     public class Question {

@@ -29,6 +29,8 @@ public class Spawner : MonoBehaviour
     bool isCamping;
 
     bool isDisabled;
+    // keep a copy of the executing script
+    private IEnumerator lastcoroutine;
 
     public event Action<int> OnNewWave;
 
@@ -60,19 +62,20 @@ public class Spawner : MonoBehaviour
             {
                 enemiesRemainingToSpawn--;
                 nextSpawnTime = Time.time + currentWave.timeBetweenSpawns;
-
-                StartCoroutine(SpawnEnemy());
+                lastcoroutine = SpawnEnemy();
+                StartCoroutine(lastcoroutine);
             }
         }
         if (devMode)
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                StopCoroutine(SpawnEnemy());
+                StopCoroutine(lastcoroutine);
                 foreach (Enemy enemy in FindObjectsOfType<Enemy>())
                 {
                     GameObject.Destroy(enemy.gameObject);
                 }
+                enemiesRemainingToSpawn = 0;
                 NextWave();
             }
         }
@@ -121,6 +124,17 @@ public class Spawner : MonoBehaviour
         {
             NextWave();
         }
+    }
+
+    public void KillAllEnemiesAndNextWave()
+    {
+        StopCoroutine(lastcoroutine);
+        foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+        {
+            GameObject.Destroy(enemy.gameObject);
+        }
+        enemiesRemainingToSpawn = 0;
+        NextWave();
     }
 
     void ResetPlayerPosition()
