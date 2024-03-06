@@ -6,48 +6,41 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     public Transform weaponHold;
-    public Gun startingGun;
-
-    Gun equipedGun;
+    public Gun[] allGuns;
+    Gun equippedGun;
 
     void Start()
     {
-        if (startingGun != null)
-        {
-            EquipGun(startingGun);
-        }
+
     }
     public void EquipGun(Gun gunToEquip)
     {
-        if (equipedGun != null)
+        if (equippedGun != null)
         {
-            Destroy(equipedGun.gameObject);
+            Destroy(equippedGun.gameObject);
         }
-        equipedGun = Instantiate(gunToEquip, weaponHold.position, weaponHold.rotation) as Gun;
-        equipedGun.transform.parent = weaponHold;
+        equippedGun = Instantiate(gunToEquip, weaponHold.position, weaponHold.rotation) as Gun;
+        equippedGun.transform.parent = weaponHold;
+    }
+
+    public void EquipGun(int weaponIndex)
+    {
+        EquipGun(allGuns[weaponIndex]);
     }
 
     public void OnTriggerHold()
     {
-        if (equipedGun != null)
+        if (equippedGun != null)
         {
-            equipedGun.OnTriggerHold();
+            equippedGun.OnTriggerHold();
         }
     }
 
     public void OnTriggerRelease()
     {
-        if (equipedGun != null)
+        if (equippedGun != null)
         {
-            equipedGun.OnTriggerRelease();
-        }
-    }
-
-    public void Aim(Vector3 aimPoint)
-    {
-        if (equipedGun != null)
-        {
-            equipedGun.Aim(aimPoint);
+            equippedGun.OnTriggerRelease();
         }
     }
 
@@ -58,4 +51,21 @@ public class GunController : MonoBehaviour
             return weaponHold.position.y;
         }
     }
+
+    public void Aim(Vector3 aimPoint)
+    {
+        if (equippedGun != null)
+        {
+            equippedGun.Aim(aimPoint);
+        }
+    }
+
+    public void Reload()
+    {
+        if (equippedGun != null)
+        {
+            equippedGun.Reload();
+        }
+    }
+
 }

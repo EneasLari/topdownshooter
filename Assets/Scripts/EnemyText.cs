@@ -11,13 +11,16 @@ public class EnemyText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        print("START OF ENEMY TEXT SCRIP"+gameObject.name);
         textMesh = GetComponentInChildren<TextMesh>();
         text = textMesh.text;
         //add this object on questions management
         questionManagement = FindObjectOfType<QuestionsManagement>();
         enemy =GetComponentInParent<Enemy>();
         spawner = FindObjectOfType<Spawner>();
+        //TODO: throws error
         enemy.OnDeath += CheckIfDeadhasCorrectAnswer;
+        //END OF TODO: throws error
         questionManagement.AddEnemyText(this);
     }
 

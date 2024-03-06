@@ -36,9 +36,19 @@ public class Player : LivingEntity
     protected override void Start()
     {
         base.Start();
+    }
+
+    void Awake()
+    {
         gunController = GetComponent<GunController>();
         controller = GetComponent<PlayerController>();
         SetViewCamera();
+        FindObjectOfType<Spawner>().OnNewWave += OnNewWave;
+    }
+
+    void OnNewWave(int waveNumber) {
+        health = startingHealth;
+        gunController.EquipGun(waveNumber - 1);
     }
 
     void SetViewCamera() {
@@ -171,13 +181,6 @@ public class Player : LivingEntity
             }
         }
 
-        //make camera follow the player
-        float newx = (initialcameraoffset.x) + controller.transform.position.x;
-        float newz = (initialcameraoffset.z) + controller.transform.position.z;
-        Vector3 newpos= new Vector3(newx, viewCamera.transform.position.y, newz);
-        Vector3 newpostionofcamera = Vector3.Lerp(viewCamera.transform.position, newpos, 1 * Time.fixedDeltaTime);
-        viewCamera.transform.position = newpostionofcamera;
-
         // Weapon input
         if (Input.GetMouseButton(0))
         {
@@ -187,6 +190,14 @@ public class Player : LivingEntity
         {
             gunController.OnTriggerRelease();
         }
+
+        //make camera follow the player
+        float newx = (initialcameraoffset.x) + controller.transform.position.x;
+        float newz = (initialcameraoffset.z) + controller.transform.position.z;
+        Vector3 newpos = new Vector3(newx, viewCamera.transform.position.y, newz);
+        Vector3 newpostionofcamera = Vector3.Lerp(viewCamera.transform.position, newpos, 1 * Time.fixedDeltaTime);
+        viewCamera.transform.position = newpostionofcamera;
+
     }
 
     protected override void Die() {

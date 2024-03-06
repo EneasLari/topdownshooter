@@ -1898,7 +1898,7 @@ MonoBehaviour:
   devMode: 1
   waves:
   - infinite: 0
-    enemyCount: 4
+    enemyCount: 2
     timeBetweenSpawns: 0.7
     moveSpeed: 2.2
     hitsToKillPlayer: 5
@@ -2817,7 +2817,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303452003}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7ca29e623fc57545b83d7e2ec49f337, type: 3}
   m_Name: 
@@ -3191,7 +3191,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHold: {fileID: 209514976}
-  startingGun: {fileID: -2688417091556358367, guid: a45af3ef28c8aaa42996a89afce7ba63, type: 3}
+  allGuns:
+  - {fileID: 3166786157729520922, guid: f8aecefa8be26ef4ba0cd69fa38a7f59, type: 3}
+  - {fileID: 1915548516844592047, guid: bd1dfb0c02390314fbe0bceea0a69647, type: 3}
+  - {fileID: 4962476712756188091, guid: 27a8bd6558aa03745a7c59774a3134e8, type: 3}
+  - {fileID: 5833889931529588187, guid: 7586670dab1a5d54b8991275384c27cf, type: 3}
 --- !u!1 &336730325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6240,7 +6244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.51436126, y: -0, z: -0, w: 0.8575736}
-  m_LocalPosition: {x: 0, y: 10.33, z: -6.44}
+  m_LocalPosition: {x: 6.26, y: 9.22, z: -8.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9668,7 +9672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1392865371
 RectTransform:
   m_ObjectHideFlags: 0
