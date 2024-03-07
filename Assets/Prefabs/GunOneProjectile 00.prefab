@@ -151,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2209854207589250697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.13, y: 1.5, z: 1.233}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -189,6 +189,8 @@ MonoBehaviour:
   recoilRotationSettleTime: 0.1
   shell: {fileID: 8038741165892953258, guid: 479354ac1f309e24fa3b87764f79a3b6, type: 3}
   shellEjection: {fileID: 6437151885304736587}
+  shootAudio: {fileID: 8300000, guid: 3cc924be353f9dc49af5cd392a3241b4, type: 3}
+  reloadAudio: {fileID: 8300000, guid: a84190c6bbad46342bca84739192366b, type: 3}
 --- !u!114 &1075750256696797416
 MonoBehaviour:
   m_ObjectHideFlags: 0

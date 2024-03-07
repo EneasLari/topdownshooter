@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public interface IDamagable
+public interface IDamageable
 {
 
     void TakeHit(float damage, Vector3 hitpoint, Vector3 hitDirection);

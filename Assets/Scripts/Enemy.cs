@@ -77,8 +77,10 @@ public class Enemy : LivingEntity
 
     public override void TakeHit(float damage, Vector3 hitpoint, Vector3 hitDirection)
     {
+        AudioManager.instance.PlaySound("Impact", transform.position);
         if (damage >= health && !dead)
         {
+            AudioManager.instance.PlaySound("Enemy Death", transform.position);
             //insrtantiate and destroy after start lifetime expires
             Destroy(Instantiate(deathEffect.gameObject, hitpoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, deathEffect.main.startLifetime.constant);
         }
@@ -95,21 +97,22 @@ public class Enemy : LivingEntity
     // Update is called once per frame
     void Update()
     {
-        if (hasTarget)
+        // Check if hasTarget is true and target is not null before proceeding
+        if (hasTarget && target != null)
         {
-            //we want to see if the distance form the enemy to the target is less that the distance threshold
             if (Time.time > nextAttackTime)
             {
+                // Calculate the squared distance to the target and check it against the threshold
                 float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
                 if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionradius, 2))
                 {
+                    // Schedule the next attack time and play attack sound
                     nextAttackTime = Time.time + timeBetweenAttacks;
+                    AudioManager.instance.PlaySound("Enemy Attack", transform.position);
                     StartCoroutine(Attack());
                 }
             }
         }
-
-
     }
 
 

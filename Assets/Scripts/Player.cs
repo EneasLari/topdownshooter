@@ -200,8 +200,10 @@ public class Player : LivingEntity
 
     }
 
-    protected override void Die() {
+    public override void Die()
+    {
         viewCamera.transform.parent = null;
+        AudioManager.instance.PlaySound("Player Death", transform.position);
         base.Die();
     }
 }

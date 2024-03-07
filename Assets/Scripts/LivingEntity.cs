@@ -1,30 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
-public class LivingEntity : MonoBehaviour, IDamagable
+public class LivingEntity : MonoBehaviour, IDamageable
 {
+
     public float startingHealth;
     protected float health;
     protected bool dead;
 
-    public event Action OnDeath;
+    public event System.Action OnDeath;
 
-    //we add virtual in order the function that will inherit this class will NOT override the method
     protected virtual void Start()
     {
         health = startingHealth;
     }
-    public virtual void TakeHit(float damage, Vector3 hitpoint , Vector3 hitDirection)
+
+    public virtual void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
-        //We will do some stuff here with the hit
+        // Do some stuff here with hit var
         TakeDamage(damage);
     }
 
     public virtual void TakeDamage(float damage)
     {
         health -= damage;
+
         if (health <= 0 && !dead)
         {
             Die();
@@ -32,17 +32,13 @@ public class LivingEntity : MonoBehaviour, IDamagable
     }
     //if we right click on the script and select Self destruct this function will executed
     [ContextMenu("Self Destruct")]
-    protected virtual void Die()
+    public virtual void Die()
     {
         dead = true;
         if (OnDeath != null)
         {
             OnDeath();
         }
-
         GameObject.Destroy(gameObject);
-        print("DEAD");
     }
-
-
 }
