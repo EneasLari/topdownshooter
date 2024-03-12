@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class GameUI : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GameUI : MonoBehaviour
     public TextMeshProUGUI newWaveTitle;
     public TextMeshProUGUI newWaveEnemyCount;
 
+
+
     Spawner spawner;
 
     void Start()
@@ -21,10 +24,13 @@ public class GameUI : MonoBehaviour
         FindObjectOfType<Player>().OnDeath += OnGameOver;
     }
 
+
     void Awake()
     {
         spawner = FindObjectOfType<Spawner>();
         spawner.OnNewWave += OnNewWave;
+
+        //newWaveBanner.anchoredPosition=Vector2.up*newWaveBannerStartY;
     }
 
     void OnNewWave(int waveNumber)
@@ -47,30 +53,35 @@ public class GameUI : MonoBehaviour
     IEnumerator AnimateNewWaveBanner()
     {
 
-        float delayTime = 2f;
-        float speed = 1f;
-        float animatePercent = 0;
-        int dir = 1;
+        float delayBeforeReverse = 2f;
+        float animationSpeed = 1f;
+        float animationProgress = 0;
+        int animationDirection = 1;
 
-        float endDelayTime = Time.time + 1 / speed + delayTime;
-
-        while (animatePercent >= 0)
+        float endDelayTime = Time.time + 1 / animationSpeed + delayBeforeReverse;
+        newWaveBanner.gameObject.SetActive(true);
+        while (animationProgress >= 0)
         {
-            animatePercent += Time.deltaTime * speed * dir;
+            animationProgress += Time.deltaTime * animationSpeed * animationDirection;
 
-            if (animatePercent >= 1)
+            if (animationProgress >= 1)
             {
-                animatePercent = 1;
+                animationProgress = 1;
                 if (Time.time > endDelayTime)
                 {
-                    dir = -1;
+                    animationDirection = -1;
                 }
             }
 
-            newWaveBanner.anchoredPosition = Vector2.up * Mathf.Lerp(-380, -160, animatePercent);
+            float canvasHeight = GetComponent<Canvas>().GetComponent<RectTransform>().sizeDelta.y;
+            float bannerHeight = newWaveBanner.sizeDelta.y;
+            float offScreenY = (canvasHeight / 2) + (bannerHeight / 2);
+            float onScreenY = (canvasHeight / 2) - (bannerHeight / 2);
+
+            newWaveBanner.anchoredPosition = Vector2.up * Mathf.Lerp(-offScreenY, -(onScreenY - (bannerHeight / 2)), animationProgress);
             yield return null;
         }
-
+        newWaveBanner.gameObject.SetActive(false);
     }
 
     IEnumerator Fade(Color from, Color to, float time)
@@ -89,6 +100,6 @@ public class GameUI : MonoBehaviour
     // UI Input
     public void StartNewGame()
     {
-        SceneManager.LoadScene("GameWithMapGenerator");
+        SceneManager.LoadScene("MainGame");
     }
 }

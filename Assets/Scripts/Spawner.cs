@@ -2,9 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static MapGenerator;
-using static UnityEditor.Experimental.GraphView.GraphView;
-
 public class Spawner : MonoBehaviour
 {
     public bool devMode;
