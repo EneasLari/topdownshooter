@@ -10,6 +10,7 @@ public class Enemy : LivingEntity
     public enum StateOfAttck { Idle, Chasing, Attacking }
     StateOfAttck currentState;
     public ParticleSystem deathEffect;
+    public static event System.Action OnDeathStatic;
 
     NavMeshAgent pathFinder;
     Transform target;
@@ -80,6 +81,10 @@ public class Enemy : LivingEntity
         AudioManager.instance.PlaySound("Impact", transform.position);
         if (damage >= health && !dead)
         {
+            if (OnDeathStatic != null)
+            {
+                OnDeathStatic();
+            }
             AudioManager.instance.PlaySound("Enemy Death", transform.position);
             //insrtantiate and destroy after start lifetime expires
             Destroy(Instantiate(deathEffect.gameObject, hitpoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, deathEffect.main.startLifetime.constant);
