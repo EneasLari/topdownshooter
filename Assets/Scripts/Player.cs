@@ -152,8 +152,11 @@ public class Player : LivingEntity
         {
             gunController.OnTriggerRelease();
         }
-
-
+        // If player falls he dies
+        if (transform.position.y < -10)
+        {
+            TakeDamage(health);
+        }
     }
 
     private void TopDownMovement()
