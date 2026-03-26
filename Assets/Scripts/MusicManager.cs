@@ -10,29 +10,9 @@ public class MusicManager : MonoBehaviour
 
     string sceneName;
 
-    void Start()
-    {
-        //Gets replaced with onSceneManager.sceneloaded
-        //OnLevelWasLoaded(0);
-    }
 
-
-    //Gets replaced with onSceneManager.sceneloaded
-    //void OnLevelWasLoaded(int sceneIndex)
-    //{
-    //    string newSceneName = SceneManager.GetActiveScene().name;
-    //    if (newSceneName != sceneName)
-    //    {
-    //        sceneName = newSceneName;
-    //        Invoke("PlayMusic", .2f);
-    //    }
-    //}
-
-    // called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
         //code of OnLevelWasLoaded
         string newSceneName = SceneManager.GetActiveScene().name;
         if (newSceneName != sceneName)
@@ -45,14 +25,12 @@ public class MusicManager : MonoBehaviour
     // called first
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     // called when the game is terminated
     void OnDisable()
     {
-        Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 

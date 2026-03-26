@@ -206,27 +206,32 @@ public class MapGenerator : MonoBehaviour
     }
 
     [System.Serializable]
-    public struct Coord
-    {
+    public struct Coord {
         public int x;
         public int y;
 
-        public Coord(int _x, int _y)
-        {
+        public Coord(int _x, int _y) {
             x = _x;
             y = _y;
         }
 
-        public static bool operator ==(Coord c1, Coord c2)
-        {
+        public static bool operator ==(Coord c1, Coord c2) {
             return c1.x == c2.x && c1.y == c2.y;
         }
 
-        public static bool operator !=(Coord c1, Coord c2)
-        {
+        public static bool operator !=(Coord c1, Coord c2) {
             return !(c1 == c2);
         }
 
+        public override bool Equals(object obj) {
+            if (!(obj is Coord)) return false;
+            Coord other = (Coord)obj;
+            return x == other.x && y == other.y;
+        }
+
+        public override int GetHashCode() {
+            return x.GetHashCode() ^ y.GetHashCode();
+        }
     }
 
     [System.Serializable]

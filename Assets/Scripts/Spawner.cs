@@ -115,7 +115,6 @@ public class Spawner : MonoBehaviour
 
     void OnEnemyDeath()
     {
-        //print("Enemy Died");
         enemiesRemainingAlive--;
         if (enemiesRemainingAlive == 0)
         {
